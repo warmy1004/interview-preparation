@@ -1,4 +1,4 @@
-** BFS (Breadth-First Search) **
+# BFS (Breadth-First Search) 
 * vertex-baed technique for finding the shortest path in a graph and in a tree
     a traversaol approach in which we first walk through all nodes on the same level before moving on to the next level
 * using a Queue data structure that follows FIFO
@@ -39,7 +39,7 @@
     * Recommender sysgtems
     * Others: Many algorithms like Prim's Minimum Spanning Tree and Dijkstra's Single Source Shortest Path use structure similar to BFS
 
-* Graph algorithm
+## Graph algorithm
     1. Initialization: Enqueue the starting node into a queue and mark it as visited
     2. Exploration: While the queue is not empty:
         * Dequeue a node from the queue and visit it (e.g., print its value)
