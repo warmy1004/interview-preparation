@@ -20,7 +20,7 @@
         ransomNote and magazine consist of lowercase English letters. 
 */
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
 public class Problem383_HashMap {
     // public boolean canConstruct(String ransomNote, String magazine) {
