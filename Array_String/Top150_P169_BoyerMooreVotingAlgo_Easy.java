@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Problem168_BoyerMooreVotingAlgo {
+public class Top150_P169_BoyerMooreVotingAlgo_Easy {
     /*
      * Solution 1 - HashMap <mine>
      * time complexity : O(n)

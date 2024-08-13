@@ -40,7 +40,7 @@
 
 package Array_String;
 
-public class Problem80_ToDo {
+public class Top150_P80_ToDo_Medium {
     public int removeDuplicates(int[] nums) {
 
         /*

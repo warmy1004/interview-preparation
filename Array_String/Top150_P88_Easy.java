@@ -35,7 +35,7 @@
 */
 package Array_String;
 
-public class Problem88 {
+public class Top150_P88_Easy {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int n1 = m-1, n2 = n-1;
 
