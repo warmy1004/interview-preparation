@@ -25,7 +25,7 @@
         The maximum depth of any integer is less than or equal to 50.
  */
 
-package BFS_DFS;
+package BFS_DFS_BinaryTree;
 
 import java.util.LinkedList;
 import java.util.List;

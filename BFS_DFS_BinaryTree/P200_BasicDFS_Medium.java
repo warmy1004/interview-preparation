@@ -29,7 +29,7 @@
         grid[i][j] is '0' or '1'.
  */
 
-package BFS_DFS;
+package BFS_DFS_BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;

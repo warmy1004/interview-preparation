@@ -26,7 +26,7 @@
         There is exactly one island in grid.
  */
 
-package BFS_DFS;
+package BFS_DFS_BinaryTree;
 
 public class P463_ToDo_Easy {
     /*
