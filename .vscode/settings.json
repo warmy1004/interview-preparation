@@ -1,0 +1,8 @@
+{
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.project.sourcePaths": [
+        ".",
+        "Java_Technique"
+    ],
+    "java.project.referencedLibraries": []
+}
