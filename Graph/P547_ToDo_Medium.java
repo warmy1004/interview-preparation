@@ -22,7 +22,7 @@
         isConnected[i][j] == isConnected[j][i]
  */
 
-package UnionFind_DFS_BFS;
+package Graph;
 
 /*
     Similar Questions:

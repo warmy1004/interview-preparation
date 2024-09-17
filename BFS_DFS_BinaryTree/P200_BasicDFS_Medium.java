@@ -73,42 +73,42 @@ public class P200_BasicDFS_Medium {
      * time complexity : O(n*m)
      * space complexity: O(n*m)
      */
-    // public int numIslands(char[][] grid) {
-    //     int n = grid.length;
-    //     int m = grid[0].length;
-    //     int count = 0;
+    public int numIslands_BFS(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int count = 0;
 
-    //     for(int i = 0 ; i< n; i++) {
-    //         for(int j=0; j<m;j++) {
-    //             if(grid[i][j]=='1') {
-    //                 count++;
-    //                 grid[i][j]='0';
-    //                 Queue<Integer> queue = new LinkedList<>();
-    //                 queue.add(i*m + j);
-    //                 while(!queue.isEmpty()) {
-    //                     int curr = queue.poll();
-    //                     int row = curr/m;
-    //                     int col = curr%m;
-    //                     if ( row > 0 && grid[row-1][col] == '1') {
-    //                         queue.add((row-1)*m + col);
-    //                         grid[row-1][col]='0';
-    //                     }
-    //                     if (row < n-1 && grid[row+1][col] =='1') {
-    //                         queue.add((row+1)*m+col);
-    //                         grid[row+1][col] = '0';
-    //                     }
-    //                     if ( col >0 && grid[row][col-1]=='1') {
-    //                         queue.add(row * m + (col-1));
-    //                         grid[row][col-1]='0';
-    //                     }
-    //                     if(col<m-1 && grid[row][col+1]=='1') {
-    //                         queue.add(row*m + (col+1));
-    //                         grid[row][col+1]='0';
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return count;
-    // }
+        for(int i = 0 ; i< n; i++) {
+            for(int j=0; j<m;j++) {
+                if(grid[i][j]=='1') {
+                    count++;
+                    grid[i][j]='0';
+                    Queue<Integer> queue = new LinkedList<>();
+                    queue.add(i*m + j);
+                    while(!queue.isEmpty()) {
+                        int curr = queue.poll();
+                        int row = curr/m;
+                        int col = curr%m;
+                        if ( row > 0 && grid[row-1][col] == '1') {
+                            queue.add((row-1)*m + col);
+                            grid[row-1][col]='0';
+                        }
+                        if (row < n-1 && grid[row+1][col] =='1') {
+                            queue.add((row+1)*m+col);
+                            grid[row+1][col] = '0';
+                        }
+                        if ( col >0 && grid[row][col-1]=='1') {
+                            queue.add(row * m + (col-1));
+                            grid[row][col-1]='0';
+                        }
+                        if(col<m-1 && grid[row][col+1]=='1') {
+                            queue.add(row*m + (col+1));
+                            grid[row][col+1]='0';
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
 }
