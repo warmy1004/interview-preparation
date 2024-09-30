@@ -17,7 +17,7 @@
         1 <= s.length <= 2000
         s consists of lowercase and/or uppercase English letters only.
  */
-package Array_String;
+package Palindrome;
 
 import java.util.HashSet;
 import java.util.Set;
