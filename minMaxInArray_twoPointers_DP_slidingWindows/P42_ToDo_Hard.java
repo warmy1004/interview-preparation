@@ -17,11 +17,14 @@
         0 <= height[i] <= 10^5
  */
 
-package Array_String;
+package minMaxInArray_twoPointers_DP_slidingWindows;
 
-import java.util.Stack;
-
-public class Top150_P42_ToDo_Hard {
+/*
+ * Similar Questions:
+ *      11. Container With Most Water
+ *      238. Product of Array except self
+ */
+public class P42_ToDo_Hard {
     /*
      * Solution 1: DP
      * time complexity: O(n)

@@ -1,0 +1,145 @@
+Palindrome을 해결할 수 있는 방법
+1. Two Pointer
+    - 주어진 문자열이 Palindrome인지 확인하는 문제에서 가장 자주 사용
+    - time complexity: O(n)
+    - python code sample:
+        def is_palindrome(s: str) -> bool:
+            left, right = 0, len(s) - 1
+            while left < right:
+                if s[left] != s[right]:
+                    return False
+                left += 1
+                right -= 1
+            return True
+
+
+2. DP
+    - longest palindromic substring 또는 모든 palindrome sub string의 개수를 세는 문제에서 사용
+    - time complexity: 𝑂(𝑛^2)
+    - python code sample:
+        def longest_palindrome(s: str) -> str:
+            n = len(s)
+            if n == 0:
+                return ""
+            dp = [[False] * n for _ in range(n)]
+            start, max_len = 0, 1
+            
+            # 모든 단일 문자 팰린드롬
+            for i in range(n):
+                dp[i][i] = True
+            
+            # 두 글자 팰린드롬
+            for i in range(n - 1):
+                if s[i] == s[i + 1]:
+                    dp[i][i + 1] = True
+                    start = i
+                    max_len = 2
+            
+            # 세 글자 이상의 팰린드롬
+            for length in range(3, n + 1):
+                for i in range(n - length + 1):
+                    j = i + length - 1
+                    if s[i] == s[j] and dp[i + 1][j - 1]:
+                        dp[i][j] = True
+                        start = i
+                        max_len = length
+            
+            return s[start:start + max_len]
+
+
+3. Expand Around Center
+    - longest palindromic substring
+    - time complexity: 𝑂(𝑛^2)
+    - python code sample:
+        def expand_around_center(s: str, left: int, right: int) -> str:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left + 1:right]
+
+        def longest_palindrome(s: str) -> str:
+            if len(s) == 0:
+                return ""
+            
+            longest = ""
+            for i in range(len(s)):
+                # 홀수 길이 팰린드롬
+                odd_palindrome = expand_around_center(s, i, i)
+                if len(odd_palindrome) > len(longest):
+                    longest = odd_palindrome
+                
+                # 짝수 길이 팰린드롬
+                even_palindrome = expand_around_center(s, i, i + 1)
+                if len(even_palindrome) > len(longest):
+                    longest = even_palindrome
+            
+            return longest
+
+
+4. Manacher's Algorithm 
+    - 선형시간에 longtest palindromic substring을 찾을 수 있는 고급 알고리즘. 문자열을 특수한 방식으로 변환하여, palindrome의 대칭성을 효율적으로 탐색
+    - longest palindromic substring을 빠르게 찾는 문제에서 사용
+    - time complexity: O(n)
+    - python code sample:
+        def preprocess(s: str) -> str:
+            return '#' + '#'.join(s) + '#'
+
+        def manacher(s: str) -> str:
+            T = preprocess(s)
+            n = len(T)
+            P = [0] * n
+            center, right = 0, 0
+            
+            for i in range(n):
+                mirror = 2 * center - i
+                
+                if i < right:
+                    P[i] = min(right - i, P[mirror])
+                
+                # 팰린드롬 확장
+                while i + P[i] + 1 < n and i - P[i] - 1 >= 0 and T[i + P[i] + 1] == T[i - P[i] - 1]:
+                    P[i] += 1
+                
+                # center와 right 업데이트
+                if i + P[i] > right:
+                    center = i
+                    right = i + P[i]
+        
+        # 가장 긴 팰린드롬 찾기
+        max_len, center_index = max((n, i) for i, n in enumerate(P))
+        start = (center_index - max_len) // 2
+        return s[start:start + max_len]
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Palindrome 문제에서 DP(dynamic programming)로 풀리는 경우와 Two Pointers로 풀리는 경우를 구분하는 데는 문제의 특성이나 요구 사항을 살펴보는 것이 중요합니다. 
+다음은 어떤 방식이 적합할지 판단하는 기준을 설명합니다.
+
+1. DP로 풀리는 경우:
+    **부분 문제(subproblem)**로 나누어 풀이가 가능한 경우.
+    모든 부분 문자열에 대한 정보를 저장해야 하는 경우.
+    문제에서 모든 부분 문자열에 대한 최댓값 또는 최솟값을 구하라고 할 때.
+    긴 문자열에서 여러 중첩된 경우를 고려해야 하는 문제에서 DP가 유리합니다.
+
+예시:
+* Longest Palindromic Subsequence: 주어진 문자열에서 가장 긴 팰린드롬 수열을 찾아야 할 때, 각 부분 문자열이 팰린드롬인지 여부를 저장하면서 하위 문제를 풀어야 하므로 DP가 적합합니다.
+* Count of Palindromic Substrings: 문자열 내 팰린드롬인 부분 문자열의 개수를 세는 문제도 DP로 풀기 좋습니다. 각 부분 문자열이 팰린드롬인지 미리 계산하고 이를 기반으로 개수를 세는 방식이 필요하기 때문입니다.
+
+>> 특징: DP는 모든 부분 문자열에 대해 팰린드롬 여부를 기록하고 갱신하는 과정이 중요합니다. 시간 복잡도는 보통 𝑂(𝑛^2), memory complexity 역시 𝑂(𝑛^2)를 필요로 할 수 있다.
+
+2. Two Pointers로 풀리는 경우:
+    팰린드롬 여부만 확인하는 문제에서 주로 사용됩니다.
+    문자열의 시작과 끝에서 동시에 비교를 할 수 있는 경우.
+    특정한 조건에 대한 빠른 확인이 필요한 경우.
+    팰린드롬의 길이 또는 여부를 확인할 때 유리합니다.
+
+예시:
+* Is Palindrome: 주어진 문자열이 팰린드롬인지 여부만 확인하는 문제는 두 포인터로 해결하는 것이 매우 효율적입니다. 시작과 끝에서 각각 포인터를 두고 비교하며, 중간에서 만나면 팰린드롬임을 확인할 수 있습니다.
+* Longest Palindromic Substring: 문자열에서 가장 긴 팰린드롬 부분 문자열을 찾는 문제도 Two Pointers로 풀 수 있습니다. 여기서 팰린드롬의 중심을 기준으로 좌우로 확장하는 방식(Expand Around Center)으로 풀이가 가능합니다. 이 경우 시간 복잡도는 𝑂(𝑛^2) 입니다.
+
+>> 특징: Two Pointers는 문제의 성질이 비교적 간단하거나 특정 조건을 만족할 때 빠르게 판별할 수 있습니다. 시간 복잡도는 보통 𝑂(𝑛) 혹은 𝑂(𝑛^2)로, DP에 비해 메모리 사용량이 적습니다.
+
+요약:
+    DP를 사용하는 경우: 여러 부분 문자열의 정보를 저장하고 갱신해야 하는 경우, 특히 최댓값/최솟값을 구하거나, 부분 문제로 나눠 풀어야 할 때.
+    Two Pointers를 사용하는 경우: 팰린드롬 여부를 단순히 확인하거나, 특정 부분을 빠르게 비교해야 할 때.
+문제를 읽고 부분 문자열에 대한 정보 관리가 중요한지, 아니면 단순한 비교로 해결 가능한지에 따라 적절한 방법을 선택하면 됩니다.

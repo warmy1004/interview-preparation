@@ -1,5 +1,5 @@
 /*
-    238. Producgt of Array except self
+    238. Product of Array except self
 
     Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
     The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
@@ -22,17 +22,21 @@
     Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)
  */
 
-package Array_String;
+package minMaxInArray_twoPointers_DP_slidingWindows;
 
-public class Top150_P238_Medium {
+public class P238_Medium {
+    /*
+     * Solution: Left and Right product lists
+     * time complexity: O(n)
+     * space complexity: O(1)
+     */
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
         int[] result = new int[n];
+        result[0]=1;
 
-        int prefix=1; // to store a result of the product of all left values
-        for(int i=0; i<n; i++) {
-            result[i]=prefix;
-            prefix*=nums[i];
+        for(int i=1; i<n; i++) {
+            result[i]= nums[i-1]*result[i-1];
         }
 
         int suffix=1; // to store a result of the product of all right values
@@ -43,8 +47,3 @@ public class Top150_P238_Medium {
         return result;
     }
 }
-
-/*
- * time complexity : O(n)
- * space complexity: O(1)
- */
