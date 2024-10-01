@@ -20,7 +20,7 @@
 
 package Array_String;
 
-public class Top150_P14_ToDo_DivideConquer_Easy {
+public class P14_ToDo_Easy {
     /*
      * Solution 1: Vertical scanning
      * time complexity: O(S), where S is the sume of all characters in all strings. In the worst case, there will be n euqal strings with length m and the algorithm performs S=mn character comparisons.
