@@ -39,7 +39,7 @@ package DP;
  *      509. Fibonacci Number(Easy)
  *      931. Minimum Falling Path Sum (Medium)
  */
-public class P746_ToDo_Easy {
+public class P746_Fibonacci_ToDo_Easy {
     /*
      * Solution 1: DP
      * time complexity: O(n)

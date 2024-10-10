@@ -47,35 +47,57 @@ public class P152_ToDo_Medium {
     }
 
     /*
-     * Solution: Two pointers
+     * Solution: Two pointers - Kadane's algorithm
      * time complexity: O(n)
      * space complexity: O(1)
      */
     public int maxProduct(int[] nums) {
+  
         int left = 0;
         int right = nums.length-1;
-        int leftsum = 0;
-        int rightsum= 0;
-        int maxvalue = 0;
+        int leftproduct = 1;
+        int rightproduct= 1;
+        int maxvalue = nums[0];
         while(left<nums.length && right >= 0) {
-            int left = 0;
-            int right = nums.length-1;
-            int leftproduct = 1;
-            int rightproduct= 1;
-            int maxvalue = nums[0];
-            while(left<nums.length && right >= 0) {
 
-                // if any of leftproduct and rightproduct becomes 0 (which means, the previous num[i] value was 0), then udpate it 1 to start fresh
-                if (leftproduct == 0) {
-                    leftproduct = 1;
-                }
-                if (rightproduct == 0) {
-                    rightproduct = 1;
-                }
-                leftproduct *= nums[left++];
-                rightproduct *= nums[right--];
-                maxvalue = Math.max(maxvalue, Math.max(leftproduct, rightproduct));
+            // if any of leftproduct and rightproduct becomes 0 (which means, the previous num[i] value was 0), then udpate it 1 to start fresh
+            if (leftproduct == 0) {
+                leftproduct = 1;
             }
-            return maxvalue;
+            if (rightproduct == 0) {
+                rightproduct = 1;
+            }
+            leftproduct *= nums[left++];
+            rightproduct *= nums[right--];
+            maxvalue = Math.max(maxvalue, Math.max(leftproduct, rightproduct));
+        }
+        return maxvalue;
+    }
+
+    /*
+     * Solution: Two pointers - another version
+     * time complexity: O(n)
+     * space complexity: O(1)
+     */
+    public int maxProduct(int[] nums) {
+        int max = Integer.MIN_VALUE;
+        int product = 1;
+        for(int num: nums) {
+            product *= num;
+            max = Math.max(max, product);
+            if(product == 0) {
+                product = 1;
+            }
+        }
+
+        product = 1;
+        for(int i=nums.length-1; i>=0; i--) {
+            product *= nums[i];
+            max = Math.max(max, product);
+            if(product ==0) {
+                product = 1;
+            }
+        }
+        return max;
     }
 }
