@@ -24,9 +24,12 @@
  */
 package Array_String.SlidingWindow;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /*
  * Similar Questions
@@ -57,6 +60,26 @@ public class P3_ToDo_Medium {
             seen.add(s.charAt(right));
         }
         return maxCount;
+    }
+
+    /*
+     * Solution: ArrayList + sliding window
+     * time complexity: O(n)
+     * space complexity: O(n)
+     */
+    public int lengthOfLongestSubstring(String s) {
+        List<Character> seen = new ArrayList<>();
+        int count = 0;
+        for(char ch: s.toCharArray()) {
+            if(seen.contains(ch)) {
+                while(seen.contains(ch)) {
+                    seen.removeFirst();
+                }
+            }
+            seen.add(ch);
+            count = Math.max(count, seen.size());
+        }
+        return count;
     }
 
     /*

@@ -1,0 +1,105 @@
+/*
+    2006. count number of pairs with absolute difference K
+    Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+    The value of |x| is defined as:
+        x if x >= 0.
+        -x if x < 0.
+    
+    Example 1:
+        Input: nums = [1,2,2,1], k = 1
+        Output: 4
+        Explanation: The pairs with an absolute difference of 1 are:
+        - [1,2,2,1]
+        - [1,2,2,1]
+        - [1,2,2,1]
+        - [1,2,2,1]
+
+    Example 2:
+        Input: nums = [1,3], k = 3
+        Output: 0
+        Explanation: There are no pairs with an absolute difference of 3.
+
+    Example 3:
+        Input: nums = [3,2,1,5,4], k = 2
+        Output: 3
+        Explanation: The pairs with an absolute difference of 2 are:
+        - [3,2,1,5,4]
+        - [3,2,1,5,4]
+        - [3,2,1,5,4]
+    
+
+    Constraints:
+        1 <= nums.length <= 200
+        1 <= nums[i] <= 100
+        1 <= k <= 99
+ */
+package twoPointer.Sum;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class P2006_Easy {
+    /*
+     * Solution: Using HashMap
+     *      Target is nums[i]-nums[j] == k OR nums[j]-nums[i] == k. So, to get nums[j], we need to calculate nums[i]-k AND nums[i]+k
+     * time complexity: O(n)
+     * space complexity: O(n)
+     */
+    public int countKDifference(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        for(int i: nums) {
+            map.put(i, map.getOrDefault(i, 0)+1);
+
+            int diff1 = i+k;
+            int diff2 = i-k;
+
+            if(map.containsKey(diff1)) {
+                count += map.get(diff1);
+            }
+            if(map.containsKey(diff2)) {
+                count+=map.get(diff2);
+            }
+        }
+        return count;
+    }
+
+    public int countKDifference(int[] nums, int k) {
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num: nums) {
+            map.put(num, map.getOrDefault(num, 0)+1);
+            count+= map.getOrDefault(num-k, 0) + map.getOrDefault(num+k, 0);
+        }
+        return count;
+    }
+
+    /*
+     * Solution: using array - counting sort
+     * time complexity: O(n)
+     * space complexity: O(1)
+     */
+    public int countKDifference(int[] nums, int k) {
+        // an array where we count the frequency of every element
+        int[] arr = new int[101];
+        for(int num: nums) {
+            arr[num]++;
+        }
+        int count = 0;
+        for(int i=k+1; i<101; i++) {
+            count+= arr[i] * arr[i-k];
+        }
+        return count;
+    }
+
+    public int countKDifference(int[] nums, int k) {
+        int count = 0;
+        int[] arr = new int[101];
+        for(int num: nums) {
+            if(num-k>0) count += arr[num-k]; // [1,2], k=1
+            if(num+k<101) count+= arr[num+k]; // [2, 1], k=1
+            arr[num]++;
+        }
+        return count;
+    }
+}

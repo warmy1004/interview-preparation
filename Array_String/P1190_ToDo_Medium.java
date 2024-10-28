@@ -82,4 +82,21 @@ public class P1190_ToDo_Medium {
         }
         return result.toString();
     }
+
+    public String reverseParentheses(String s) {
+        Stack<StringBuilder> stack = new Stack<>();
+        StringBuilder result = new StringBuilder();
+        for(char ch: s.toCharArray()) {
+            if( ch == '(') {
+                stack.push(result);
+                result = new StringBuilder();
+            } else if(ch==')') {
+                result = result.reverse();
+                result = stack.pop().append(result);
+            } else {
+                result.append(ch);
+            }
+        }
+        return result.toString();
+    }
 }
