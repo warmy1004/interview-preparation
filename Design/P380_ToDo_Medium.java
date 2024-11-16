@@ -32,15 +32,14 @@
         There will be at least one element in the data structure when getRandom is called.
  */
 
-package Array_String;
+package Design;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 
-public class Top150_P380_Medium {
+public class P380_ToDo_Medium {
     /*
      * Solution 1 : HashMap + ArrayList
      * 
@@ -54,7 +53,7 @@ public class Top150_P380_Medium {
     ArrayList<Integer> list;
     Map<Integer, Integer> map;
 
-    public Top150_P380_Medium() {
+    public P380_ToDo_Medium() {
         list = new ArrayList<>();
         map = new HashMap<>();
         rand = new Random();
@@ -96,30 +95,30 @@ public class Top150_P380_Medium {
      *      getRandom() : O(n) because of toArray
      */
 
-    // HashSet<Integer> set;
-    // Random rand;
-    // public RandomizedSet() {
-    //     set = new HashSet<>();
-    //     rand = new Random();
-    // }
+    HashSet<Integer> set;
+    Random rand;
+    public RandomizedSet() {
+        set = new HashSet<>();
+        rand = new Random();
+    }
     
-    // public boolean insert(int val) {
-    //     if(set.contains(val)) return false;
-    //     else {
-    //         set.add(val);
-    //         return true;
-    //     }
-    // }
+    public boolean insert(int val) {
+        if(set.contains(val)) return false;
+        else {
+            set.add(val);
+            return true;
+        }
+    }
     
-    // public boolean remove(int val) {
-    //     if(!set.contains(val)) return false;
-    //     else {
-    //         set.remove(val);
-    //         return true;
-    //     }
-    // }
+    public boolean remove(int val) {
+        if(!set.contains(val)) return false;
+        else {
+            set.remove(val);
+            return true;
+        }
+    }
     
-    // public int getRandom() {
-    //     return (int)set.toArray()[rand.nextInt(set.size())];
-    // }
+    public int getRandom() {
+        return (int)set.toArray()[rand.nextInt(set.size())];
+    }
 }

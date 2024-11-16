@@ -19,13 +19,13 @@
         0 <= nums[i] <= 10^5
  */
 
-package Array_String;
+package DP;
 
 enum Status {
     GOOD, BAD, UNKNOWN
 }
 
-public class Top150_P55_ToDo_DP_Medium {
+public class P55_Must_ToDo_DP_Medium {
     /*
      * Solution 1 : Top-down DP with memoization
      * 
@@ -37,35 +37,35 @@ public class Top150_P55_ToDo_DP_Medium {
      * space complexity: O(n)
      */
     
-    // Status[] memo;
-    // public boolean canJump(int[] nums) {
-    //     memo = new Status[nums.length];
-    //     for (int i=0; i<nums.length; i++) {
-    //         memo[i] = Status.UNKNOWN;
-    //     }
-    //     // last index always reaches itself.
-    //     memo[nums.length-1] = Status.GOOD;
-    //     return checkJump(0, nums);
-    // }
+    Status[] memo;
+    public boolean canJump(int[] nums) {
+        memo = new Status[nums.length];
+        for (int i=0; i<nums.length; i++) {
+            memo[i] = Status.UNKNOWN;
+        }
+        // last index always reaches itself.
+        memo[nums.length-1] = Status.GOOD;
+        return checkJump(0, nums);
+    }
 
-    // boolean checkJump(int pos, int[] nums) {
-    //     if(memo[pos]!=Status.UNKNOWN) return memo[pos] == Status.GOOD ? true : false;
+    boolean checkJump(int pos, int[] nums) {
+        if(memo[pos]!=Status.UNKNOWN) return memo[pos] == Status.GOOD ? true : false;
         
-    //     // find the furthest index which it can jump
-    //     int furtherJump = Math.min(pos + nums[pos], nums.length-1);
+        // find the furthest index which it can jump
+        int furtherJump = Math.min(pos + nums[pos], nums.length-1);
 
-    //     // one quick optimizaation - check from right to left instead of checking from left to right. 
-    //     // the theoritical worst case performance is the same, but in practice for silly examples, the code might run faster.
-    //     // Intuitively, this means we always try to make the biggest jump such that we reach the end asap
-    //     for(int nextPos = furtherJump; nextPos> pos; nextPos--) {
-    //         if(checkJump(nextPos, nums)) {
-    //             memo[pos] = Status.GOOD;
-    //             return true;
-    //         }
-    //     }
-    //     memo[pos] = Status.BAD;
-    //     return false;
-    // }
+        // one quick optimizaation - check from right to left instead of checking from left to right. 
+        // the theoritical worst case performance is the same, but in practice for silly examples, the code might run faster.
+        // Intuitively, this means we always try to make the biggest jump such that we reach the end asap
+        for(int nextPos = furtherJump; nextPos> pos; nextPos--) {
+            if(checkJump(nextPos, nums)) {
+                memo[pos] = Status.GOOD;
+                return true;
+            }
+        }
+        memo[pos] = Status.BAD;
+        return false;
+    }
 
     /*
      * Solution 2: Bottom UP DP.
@@ -79,24 +79,24 @@ public class Top150_P55_ToDo_DP_Medium {
      * time complexity: O(n^2)
      * space complexity: O(1)
      */
-    // public boolean canJump(int[] nums) {
-    //     Status[] memo = new Status[nums.length];
-    //     for(int i=0; i<nums.length; i++) {
-    //         memo[i] = Status.UNKNOWN;
-    //     }
-    //     memo[nums.length-1] = Status.GOOD;
+    public boolean canJump(int[] nums) {
+        Status[] memo = new Status[nums.length];
+        for(int i=0; i<nums.length; i++) {
+            memo[i] = Status.UNKNOWN;
+        }
+        memo[nums.length-1] = Status.GOOD;
 
-    //     for(int pos=nums.length-2; pos>=0; pos--) {
-    //         int furtherJump = Math.min(nums.length-1, pos+nums[pos]);
-    //         for(int nextpos = furtherJump; nextpos>pos; nextpos-- ) {
-    //             if(memo[nextpos] == Status.GOOD) {
-    //                 memo[nextpos] = Status.GOOD;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return memo[0] == Status.GOOD;
-    // }
+        for(int pos=nums.length-2; pos>=0; pos--) {
+            int furtherJump = Math.min(nums.length-1, pos+nums[pos]);
+            for(int nextpos = furtherJump; nextpos>pos; nextpos-- ) {
+                if(memo[nextpos] == Status.GOOD) {
+                    memo[nextpos] = Status.GOOD;
+                    break;
+                }
+            }
+        }
+        return memo[0] == Status.GOOD;
+    }
 
     /*
      * Solution 3 - Greedy
@@ -111,15 +111,25 @@ public class Top150_P55_ToDo_DP_Medium {
      * time complexity: O(n)
      * space complexity: O(1)
      */
-    // public boolean canJump(int[] nums) {
-    //     int lastpos = nums.length-1;
-    //     for(int pos = nums.length-1; pos>=0; pos--) {
-    //         if(pos+nums[pos] >= lastpos) {
-    //             lastpos = pos;
-    //         }
-    //     }
-    //     return lastpos == 0;
-    // }
+    public boolean canJump(int[] nums) {
+        int lastpos = nums.length-1;
+        for(int pos = nums.length-1; pos>=0; pos--) {
+            if(pos+nums[pos] >= lastpos) {
+                lastpos = pos;
+            }
+        }
+        return lastpos == 0;
+    }
+
+    public boolean canJump(int[] nums) {
+        int target = nums.length-1;
+        for(int i=nums.length-2; i>=0; i--) {
+            if(i+nums[i] >= target) {
+                target = i;
+            }
+        }
+        return target == 0;
+    }
 
     /*
      * Solution 4

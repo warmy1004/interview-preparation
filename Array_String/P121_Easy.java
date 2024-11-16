@@ -23,7 +23,7 @@
 
 package Array_String;
 
-public class Top150_P121_Easy {
+public class P121_Easy {
     public int maxProfit(int[] prices) {
         int profit = 0;
         int low = prices[0];

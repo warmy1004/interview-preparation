@@ -26,7 +26,7 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
  */
 package minMaxInArray_twoPointers_DP_slidingWindows;
 
-public class P53_Medium {
+public class P53_ToDo_Medium {
     /*
      * Solution: Dynamic programming - kadane's algorithm
      * time complexity: O(n)

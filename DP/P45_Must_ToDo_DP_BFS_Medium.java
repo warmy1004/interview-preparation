@@ -22,12 +22,12 @@
         It's guaranteed that you can reach nums[n - 1].
  */
 
-package Array_String;
+package DP;
 
-public class Top150_P45_ToDo_DP_BFS_Medium {
+public class P45_Must_ToDo_DP_BFS_Medium {
 
     /*
-     * Solution 1
+     * Solution 1:  greedy
      * Note:
      *      The only way there are 0 jump is if you start on the last index, which means that length of nums is 1.
      *      So in the same manner, if you're in the first iteration, then there will be at least 1 jump.
@@ -61,23 +61,41 @@ public class Top150_P45_ToDo_DP_BFS_Medium {
         return count;
     }
 
+    public int jump(int[] nums) {
+        int count = 0; 
+        int curEnd = 0, curFar = 0;
+
+        // just need to hit the last index, so nums.length-1
+        for(int i=0; i<nums.length-1; i++) {
+            // update the farthest reachable index of this jump
+            curFar = Math.max(curFar, i+nums[i]);
+
+            // if we finish the starting range of this jump, move on to the starting range of the next jump
+            if(i==curEnd) {
+                count++;
+                curEnd = curFar;
+            }
+        }
+        return count;
+    }
+
     /*
      * Solution 2 - Top-down DP
      * 
      * time complexity: O(n^2)
      * space complexity: O(1)
      */
-    // public int jump(int[] nums) {
-    //     int memo[] = new int[nums.length];
-    //     Arrays.fill(memo, Integer.MAX_VALUE);
-    //     memo[0]=0;
-    //     for(int i=0; i<nums.length; i++) {
-    //         for(int j=1; j<=nums[i]; j++) {
-    //             if(i+j < nums.length) {
-    //                 memo[i+j] = Math.min(memo[i+j], memo[i]+1);
-    //             }
-    //         }
-    //     }
-    //     return memo[nums.length-1];
-    // }
+    public int jump(int[] nums) {
+        int memo[] = new int[nums.length];
+        Arrays.fill(memo, Integer.MAX_VALUE);
+        memo[0]=0;
+        for(int i=0; i<nums.length; i++) {
+            for(int j=1; j<=nums[i]; j++) {
+                if(i+j < nums.length) {
+                    memo[i+j] = Math.min(memo[i+j], memo[i]+1);
+                }
+            }
+        }
+        return memo[nums.length-1];
+    }
 }

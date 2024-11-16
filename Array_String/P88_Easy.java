@@ -35,7 +35,12 @@
 */
 package Array_String;
 
-public class Top150_P88_Easy {
+public class P88_Easy {
+    /*
+     * Solution: Start from the end
+     * time complexity: O(n+m)
+     * space complexity: O(1)
+     */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int n1 = m-1, n2 = n-1;
 
@@ -44,6 +49,18 @@ public class Top150_P88_Easy {
                 nums1[i] = nums1[n1--];
             } else {
                 nums1[i] = nums2[n2--];
+            }
+        }
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i=m-1, j=n-1;
+        for(int k=m+n-1; k>=0; k--) {
+            if(j<0) break;
+            if(i<0 || nums1[i]<nums2[j]) {
+                nums1[k] = nums2[j--];
+            } else {
+                nums1[k] = nums1[i--];
             }
         }
     }

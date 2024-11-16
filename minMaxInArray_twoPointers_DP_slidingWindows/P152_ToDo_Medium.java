@@ -26,6 +26,16 @@ package minMaxInArray_twoPointers_DP_slidingWindows;
  *      42. Trapping Rain Water
  *      53. Maximum Subarray
  */
+
+ /*
+  * Since we have to find the contiguous subarray having maximum product then your approach should be combination of following three cases:
+  *     case 1: all the elements are positive --> Then, your answer will be product of all the elements in the array
+  *     case 2: Array have positive and negative elements both -->
+  *         1. if the number of negative elements is EVEN, then again your answer will be complete array because on multiplying all the negative numbers it will become positive.
+  *         2. if the number of negative elements is ODD, then you have to remove just one negative element and for that you need to check your subarrays to get the max product. 
+  *     case 3: Array also contains 0 --> Then there will be not much difference. it's just that your array will be devided into subarray around that 0. 
+  *                 What you have to so is just as soon as your product becomes 0 make it 1 for the enxt iteration, now you will be searching new subarray and previous max will already be updated.
+  */
 public class P152_ToDo_Medium {
     /*
      * Solution: Dynamic programming
@@ -39,6 +49,8 @@ public class P152_ToDo_Medium {
 
         for(int i=1; i<nums.length; i++) {
             int minForMax = minsofar;
+            //nested Math.min/Math.max에서 nums[i]를 각각의 max와 min값에 곱한 후 비교해야 하는 것은, -값을 제대로 처리하기 위해서
+            //subarray의 max product 를 구하는 것이기 때문에, minsofar은 비교 대상군에 해당되지 않는다 (subarray가 아니므로)
             minsofar = Math.min(nums[i], Math.min(minsofar*nums[i], maxsofar*nums[i]));
             maxsofar = Math.max(nums[i], Math.max(minForMax*nums[i], maxsofar*nums[i]));
             answer = Math.max(answer, maxsofar);
@@ -99,5 +111,21 @@ public class P152_ToDo_Medium {
             }
         }
         return max;
+    }
+
+    public int maxProduct(int[] nums) {
+        int fromLeft = 1, fromRight =1, answer = nums[0];
+        int n = nums.length;
+
+        for(int i=0; i<n; i++) {
+            if(fromLeft == 0) fromLeft =1;
+            if(fromRight ==0) fromRight =1;
+
+            fromLeft *= nums[i];
+            fromRight *= nums[n-1-i];
+
+            answer = Math.max(answer, Math.max(fromLeft, fromRight));
+        }
+        return answer;
     }
 }

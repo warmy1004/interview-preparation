@@ -33,9 +33,9 @@
         1 <= n <= 10^5
         0 <= gas[i], cost[i] <= 10^4
  */
-package Array_String;
+package Greedy;
 
-public class Top150_P134_Medium {
+public class P134_ToDo_Medium {
 
     /*
      * Solution 1 - Greedy 1
@@ -62,22 +62,22 @@ public class Top150_P134_Medium {
     /*
      * Solution 2 - Greedy 2
      */
-    // public int canCompleteCircuit(int[] gas, int[] cost) {
-    //     int result_index = 0, total_tank = 0, actual_tank;
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int result_index = 0, total_tank = 0, actual_tank;
 
-    //     // Assume i is the current candidate valid station
-    //     if(int i=0; i<gas.length; i++) {
-    //         total_tank += gas[i]-cost[i];
-    //         actual_tank += gas[i]-cost[i];
+        // Assume i is the current candidate valid station
+        if(int i=0; i<gas.length; i++) {
+            total_tank += gas[i]-cost[i];
+            actual_tank += gas[i]-cost[i];
     
-    //         // if actual_tank is smaller than 0, it test if gas station i+1 is valid starting station by setting result_index as i+1 and by resetting actual_tank as 0
-    //         if(actual_tank <0) {
-    //             actual_tank = 0;
-    //             result_index = i+1;
-    //         }
-    //     }
-    //     return total_tank >=0 ? result_index : -1;
-    // }
+            // if actual_tank is smaller than 0, it test if gas station i+1 is valid starting station by setting result_index as i+1 and by resetting actual_tank as 0
+            if(actual_tank <0) {
+                actual_tank = 0;
+                result_index = i+1;
+            }
+        }
+        return total_tank >=0 ? result_index : -1;
+    }
 }
 
 /*

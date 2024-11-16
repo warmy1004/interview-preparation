@@ -38,68 +38,74 @@
         nums is sorted in non-decreasing order.
  */
 
-package Array_String;
+package twoPointer;
 
-public class Top150_P80_ToDo_Medium {
+public class P80_ToDo_Medium {
+
+    /*
+    * Solution 1
+    * time complexity: O(n)
+    * space complexity: O(1)
+    */  
     public int removeDuplicates(int[] nums) {
+        int count = 1, k = 1;
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i-1]==nums[i]) {
+                count++;
+            } else {
+                count=1;
+            }
 
-        /*
-         * Solution 1
-         * time complexity: O(n)
-         * space complexity: O(1)
-         */
-        // int count = 1, k = 1;
-        // for(int i=1; i<nums.length; i++) {
-        //     if(nums[i-1]==nums[i]) {
-        //         count++;
-        //     } else {
-        //         count=1;
-        //     }
+            if(count<=2) {
+                nums[k++] = nums[i];
+            }
+        }
+        return k;
+    }
 
-        //     if(count<=2) {
-        //         nums[k++] = nums[i];
-        //     }
-        // }
-        // return k;
+    /*
+    * Solution 2
+    * 
+    * Approach:
+    * Use two pointers, one for the current element, another for the previous two elements.
+    */
+    public int removeDuplicates(int[] nums) {
+        int len = nums.length;
+        if(len<2) {
+            return len;
+        }
+        int k = 2;
+        for(int i=2; i<len; i++) {
+            if(nums[i]!=nums[k-2]) {
+                nums[k++] = nums[i];
+            }
+        }
+        return k;
+    }
 
-        /*
-         * Solution 2
-         * 
-         * Approach:
-         * Use two pointers, one for the current element, another for the previous two elements.
-         */
-        // int len = nums.length;
-        // if(len<2) {
-        //     return len;
-        // }
-        // int k = 2;
-        // for(int i=2; i<len; i++) {
-        //     if(nums[i]!=nums[k-2]) {
-        //         nums[k++] = nums[i];
-        //     }
-        // }
-        // return k;
+    /*
+    * Solution 3
+    */
+    public int removeDuplicates(int[] nums) {
+        int k = 0;
+        for(int n: nums) {
+            if(k<2 || n > nums[k-2]) {
+                nums[k++]=n;
+            }
+        }
+        return k;
+    }
 
-        /*
-         * Solution 3
-         */
-        // int k = 0;
-        // for(int n: nums) {
-        //     if(k<2 || n > nums[k-2]) {
-        //         nums[k++]=n;
-        //     }
-        // }
-        // return k;
-
-        /*
-         * Solution 4
-         * 
-         * Approach:
-         * The approach employs a two-pointer strategy. The variable j is used to keep track of the current position in the modified array where elements are being stored without violating the constraint.
-         * The loop iterates through the array, and for each element, it checks whether it is the same as the element two position behind the current j. 
-         * If it is, it means there are already two occurrences of this element in the modified array, and we should skip adding another one to adhere to the constraint.
-         * Otherwise, the element is added to the modified array at position j, and j is incremented.
-         */
+    /*
+    * Solution 4
+    * 
+    * Approach:
+    * The approach employs a two-pointer strategy. The variable j is used to keep track of the current position in the modified array where elements are being stored without violating the constraint.
+    * The loop iterates through the array, and for each element, it checks whether it is the same as the element two position behind the current j. 
+    * If it is, it means there are already two occurrences of this element in the modified array, and we should skip adding another one to adhere to the constraint.
+    * Otherwise, the element is added to the modified array at position j, and j is incremented.
+    */
+    public int removeDuplicates(int[] nums) {
         int j = 1; 
         for(int i=1; i<nums.length; i++) {
             if(j<2 || nums[i]!=nums[j-2]) {

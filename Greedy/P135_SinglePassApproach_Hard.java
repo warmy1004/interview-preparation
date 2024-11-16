@@ -23,11 +23,11 @@
         0 <= ratings[i] <= 2 * 10^4
  */
 
-package Array_String;
+package Greedy;
 
 import java.util.Arrays;
 
-public class Top150_P135_ToDo_SinglePassApproach_Hard {
+public class P135_SinglePassApproach_Hard {
     /*
         * Solution 1: Greedy - Using one array
         * time complexity: O(n)
@@ -52,6 +52,26 @@ public class Top150_P135_ToDo_SinglePassApproach_Hard {
             result += candies[i];
         }
         return result;
+    }
+
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int[] candies = new int[n];
+        Arrays.fill(candies, 1);
+        for(int i=1; i<n; i++) {
+            if(ratings[i-1]<ratings[i] && candies[i-1]>=candies[i]) {
+                candies[i] = candies[i-1]+1;
+            }
+        }
+
+        for(int i=n-2; i>=0; i--) {
+            if(ratings[i+1]<ratings[i] && candies[i+1]>=candies[i]) {
+                candies[i] = candies[i+1]+1;
+            }
+        }
+        int total=0;
+        for(int c: candies) total+= c;
+        return total;
     }
 
     // Can't understand the logic yet

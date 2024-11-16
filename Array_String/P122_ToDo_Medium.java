@@ -28,10 +28,13 @@
 
 package Array_String;
 
-public class Top150_P122_ToDo_Medium {
+public class P122_ToDo_Medium {
     /*
-        Solution 1: Simple one pass
+        Solution 1: Simple one pass - same as DP variation
         Approach: The sum of each difference between indexes are same as the difference of the highest and the lowest indexes. 
+
+        time complexity: O(n)
+        space complexity: O(1)
     */
     public int maxProfit(int[] prices) {
         int profit=0;
@@ -42,55 +45,65 @@ public class Top150_P122_ToDo_Medium {
         return profit;
     }
 
+    public int maxProfit(int[] prices) {
+        int low = prices[0];
+        int profit = 0;
+        for(int i=1; i<prices.length; i++) {
+            if(prices[i] < low) {
+                low = prices[i];
+            } else {
+                profit += prices[i] - low;
+                low = prices[i];
+            }
+        }
+        return profit;
+    }
+
     /*
      * Solution 2: Peak Valley approach
+     * time complexity: O(n)
+     * space complexity: O(1)
      */
-    // public int maxProfit(int[] prices) {
-    //     int profit=0;
-    //     int i =0;
-    //     int low = prices[0], high = prices[0];
+    public int maxProfit(int[] prices) {
+        int profit=0;
+        int i =0;
+        int low = prices[0], high = prices[0];
 
-    //     while(i<prices.length-1) {
-    //         while( i<prices.length-1 && prices[i]>=prices[i+1]) i++;
-    //         low = prices[i];
-    //         while(i<prices.length-1 && prices[i]<= prices[i+1]) i++;
-    //         high = prices[i];
-    //         profit += high-low;
-    //     }
-    //     return profit;
-    // }
+        while(i<prices.length-1) {
+            while( i<prices.length-1 && prices[i]>=prices[i+1]) i++;
+            low = prices[i];
+            while(i<prices.length-1 && prices[i]<= prices[i+1]) i++;
+            high = prices[i];
+            profit += high-low;
+        }
+        return profit;
+    }
 
     /*
      * Solution 3: DP
      * time compelxity: O(n)
      * space complexity: O(n) because of dp[]
      */
-    // public int maxProfit(int[] prices) {
-    //     int n = prices.length;
-    //     int dp[] = new int[n];
-    //     dp[0] = 0;
-    //     for(int i=1; i<n; i++) {
-    //         dp[i] = dp[i-1]+ Math.max(0, prices[i]-prices[i-1]);
-    //     }
-    //     return dp[n-1];
-    // }
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int dp[] = new int[n];
+        dp[0] = 0;
+        for(int i=1; i<n; i++) {
+            dp[i] = dp[i-1]+ Math.max(0, prices[i]-prices[i-1]);
+        }
+        return dp[n-1];
+    }
 
     /*
      * Solution 4: DP variation - to make O(1) space complexity because it just needs dp[n-1]
      */
-    // public int maxProfit(int[] prices) {
-    //     int n = prices.length;
-    //     int profit = 0;
-    //     for(int i=1; i<n; i++) {
-    //         profit += Math.max(0, prices[i]-prices[i-1]);
-    //     }
-    //     return profit;
-    // }
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int profit = 0;
+        for(int i=1; i<n; i++) {
+            profit += Math.max(0, prices[i]-prices[i-1]);
+        }
+        return profit;
+    }
 
 }
-
-/*
- * Except Soution 3
- * time complexity: O(n)
- * space complexity: O(1)
- */

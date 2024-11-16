@@ -48,4 +48,21 @@ public class P11_Medium {
         }
         return total;
     }
+
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length-1;
+        int total = Integer.MIN_VALUE;
+        while(left<right) {
+            int currHeight = Math.min(height[left], height[right]);
+            total = Math.max(total, currHeight * (right-left));
+
+            while(left<right && height[left]<=currHeight) {
+                left++;
+            }
+            while(left<right && height[right]<=currHeight) {
+                right--;
+            }
+        }
+        return total;
+    }
 }

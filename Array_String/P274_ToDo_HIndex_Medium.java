@@ -27,7 +27,7 @@ package Array_String;
  * H-index can't be greater than the count of papers (the given array's length)
  * Goal: find max value of V such taht V of the papers have >= V number of citations.
  */
-public class Top150_P274_ToDo_HIndex_Medium {
+public class P274_ToDo_HIndex_Medium {
     public int hIndex(int[] citations) {
         int n = citations.length;
         int[] papers = new int[n+1];

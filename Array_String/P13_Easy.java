@@ -44,7 +44,7 @@ package Array_String;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Top150_P13_Easy {
+public class P13_Easy {
 
     /*
      * Solution
@@ -52,26 +52,26 @@ public class Top150_P13_Easy {
      *      If roman numerals had an arbitrary number of symbols, then the time complexity would be proportional to the length of the input, ie. O(n)
      * space complexity: O(1)
      */
-    // public int romanToInt(String s) {
-    //     Map<Character, Integer> map = new HashMap<>();
-    //     map.put('I', 1);
-    //     map.put('V', 5);
-    //     map.put('X', 10);
-    //     map.put('L', 50);
-    //     map.put('C', 100);
-    //     map.put('D', 500);
-    //     map.put('M', 1000);
+    public int romanToInt(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
 
-    //     int result = 0;
-    //     for(int i=0; i<s.length()-1; i++) {
-    //         if(map.get(s.charAt(i)) < map.get(s.charAt(i+1))) {
-    //             result -= map.get(s.charAt(i));
-    //         } else {
-    //             result += map.get(s.charAt(i));
-    //         }
-    //     }
-    //     return result += map.get(s.charAt(s.length()-1));
-    // }
+        int result = 0;
+        for(int i=0; i<s.length()-1; i++) {
+            if(map.get(s.charAt(i)) < map.get(s.charAt(i+1))) {
+                result -= map.get(s.charAt(i));
+            } else {
+                result += map.get(s.charAt(i));
+            }
+        }
+        return result += map.get(s.charAt(s.length()-1));
+    }
 
     /*
      * Solution : Same as above, but faster (100% runtime)
