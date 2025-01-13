@@ -34,6 +34,7 @@ public class P56_Medium {
      * space complexity: O(n)
      */
     public int[][] merge(int[][] intervals) {
+        // Sort is important
         Arrays.sort(intervals, (a,b) -> Integer.compare(a[0], b[0]));
         
         List<int[]> result = new ArrayList<>();

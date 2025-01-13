@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import Graph.P547_ToDo_Medium.UnionFind;
+import java.util.List;
+import java.util.Set;
 
 
 public class P261_UF_ToDo_Medium {
@@ -40,15 +42,42 @@ public class P261_UF_ToDo_Medium {
      * space complexity: O(N)
      */
     public boolean validTree_UF(int n, int[][] edges) {
+        // condition 1: the graph must contain n-1 edges to be a valid tree
         if(edges.length != n-1) return false;
         UnionFind uf = new UnionFind(n);
 
+        // condition 2: the graph must contain a single connected component
         for(int[] edge: edges) {
+            // add each edge. check if a merge happened, because if it didn't, there must be a cycle.
             if(!uf.union(edge[0], edge[1])) {
                 return false;
             }
         }
         return true;
+    }
+
+    /*
+     * Solution : UF v2 - UF combined version
+     */
+    public boolean validTree_UF(int n, int[][] edges) {
+        if(edges.length != n-1) return false;
+        int[] parent = new int[n];
+        for(int i=0; i<n; i++) {
+            parent[i] = i;
+        }
+
+        for(int[] edge: edges) {
+            int px = find(edge[0], parent);
+            int py = find(edge[1], parent);
+            // if two vertices happen to be in the same set, then there's a cycle
+            if(px == py) return false;
+            parent[px] = py;
+        }
+        return true;
+    }
+    int find(int x, int[] parent) {
+        if(parent[x]!=x) parent[x] = find(parent[x], parent);
+        return parent[x];
     }
 
     /*
@@ -123,6 +152,7 @@ class UnionFind {
         int ry = find(y);
 
         if(rx==ry) {
+            // x and y are already in the same set.
             return false;
         } else {
             if(rank[rx]<rank[ry]) {

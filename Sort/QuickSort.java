@@ -46,67 +46,67 @@ public class QuickSort {
     /*
      * Solution 2
      */
-    // void quicksort(int[] array, int low, int high) {
-    //     if(low < high) {
-    //         int pivot = partition(array, low, high);
-    //         quicksort(array, low, pivot-1);
-    //         quicksort(array, pivot+1, high);
-    //     }
-    // }
+    void quicksort(int[] array, int low, int high) {
+        if(low < high) {
+            int pivot = partition(array, low, high);
+            quicksort(array, low, pivot-1);
+            quicksort(array, pivot+1, high);
+        }
+    }
 
-    // int partition(int[] array, int low, int high) {
-    //     int pivot = high;
+    int partition(int[] array, int low, int high) {
+        int pivot = high;
 
-    //     int i = low-1;
-    //     for(int j=low; j<high; j++) {
-    //         if(array[j]<array[pivot]) {
-    //             i++;
+        int i = low-1;
+        for(int j=low; j<high; j++) {
+            if(array[j]<array[pivot]) {
+                i++;
 
-    //             int temp = array[i];
-    //             array[i] = array[j];
-    //             array[j] = temp;
-    //         }
-    //     }
-    //     int temp = array[pivot];
-    //     array[pivot] = array[i+1];
-    //     array[i+1] = temp;
-    //     return i+1;
-    // }
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        int temp = array[pivot];
+        array[pivot] = array[i+1];
+        array[i+1] = temp;
+        return i+1;
+    }
 
     /*
      * Solution 3
      */
-    // void quicksort(int[] array, int start, int end) {
-    //     if(start>=end) return; // there is only one element, then quit without sorting
+    void quicksort(int[] array, int start, int end) {
+        if(start>=end) return; // there is only one element, then quit without sorting
 
-    //     // partition
-    //     int pivot = start;
-    //     int left = start+1;
-    //     int right = end;
-    //     while(left<=right) {
-    //         // find a bigger value than array[pivot]
-    //         while(left<=end && array[left]<=array[pivot]) left++;
-    //         // find a smaller value than array[pivot]
-    //         while(right>start && array[right]>= array[pivot]) right--;
+        // partition
+        int pivot = start;
+        int left = start+1;
+        int right = end;
+        while(left<=right) {
+            // find a bigger value than array[pivot]
+            while(left<=end && array[left]<=array[pivot]) left++;
+            // find a smaller value than array[pivot]
+            while(right>start && array[right]>= array[pivot]) right--;
 
-    //         // if left and right are crossed, swap the smallest value and pivot value
-    //         if(left >= right) {
-    //             int temp = array[pivot];
-    //             array[pivot] = array[right];
-    //             array[right] = temp;
-    //         } else {
-    //             // if not, swap the small value and big value
-    //             int temp = array[left];
-    //             array[left] = array[right];
-    //             array[right] = temp;
-    //         }
-    //     }
+            // if left and right are crossed, swap the smallest value and pivot value
+            if(left >= right) {
+                int temp = array[pivot];
+                array[pivot] = array[right];
+                array[right] = temp;
+            } else {
+                // if not, swap the small value and big value
+                int temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+            }
+        }
 
-    //     // quicksort for left and right parts
-    //     // partition value == right, because right value is the smallest one in the array
-    //     quicksort(array, start, right-1);
-    //     quicksort(array, right+1, end);
-    // }
+        // quicksort for left and right parts
+        // partition value == right, because right value is the smallest one in the array
+        quicksort(array, start, right-1);
+        quicksort(array, right+1, end);
+    }
 
     /*
      * Python

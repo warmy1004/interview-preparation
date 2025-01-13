@@ -148,4 +148,20 @@ public class P3_ToDo_Medium {
         }
         return maxCount;
     }
+
+    public int lengthOfLongestSubstring(String str) {
+        int[] map = new int[128];
+        int maxLen = 0;
+        int left = 0, right = 0;
+        while(right<str.length()) {
+            char curr = str.charAt(right);
+            if(map[curr]>0) {
+                left = Math.max(left, map[curr]);
+            }
+            map[curr] = right+1;
+            maxLen = Math.max(maxLen, right-left+1);
+            right++;
+        }
+        return maxLen;
+    }
 }

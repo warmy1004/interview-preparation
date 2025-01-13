@@ -34,6 +34,7 @@ public class P973_Medium {
     /*
      * Solution: Heap
      * time complexity: O(nlogk)
+     *      Adding to/removing from the heap or prioiry queue only takes O(logk) time when the size of the heap is capped at k elements
      * space complexity: O(k)
      */
     public int[][] kClosest(int[][] points, int k) {

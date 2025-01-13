@@ -25,7 +25,12 @@
  */
 package Graph;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class P207_ToDo_Medium {
 
@@ -73,6 +78,21 @@ public class P207_ToDo_Medium {
  
     /*
      * Solution 2: Topological sort using Kahn's algorithm with Queue + print the node
+     * 
+     * Intuition:
+     *    We can see that we have been given certain courses with some dependecies between them. The dependencies are expressed as pairs, which provides some hints for framing the problem in terms of a graph.
+     *    If we regard each course as a node and draw and endge from bi to ai for any prerequisite [ai, bi] (to indicate that course bi should be completed before taking course ai), we get a directed graph.
+     *    If there is a cycle in this directed graph, it suggests that we will not be able to finish all of the courses. 
+     *    Otherwise, we can perform a topological sort of the graph to determine the order in which all of the courses can be finished. 
+     *    As a result, the problem is reduced to determining whether a cycle occurs in a graph. If there is a cycle, we must return false. If not, we return true.
+     * 
+     * A topological sort or topological ordering of a directed graph is a linear ordering of its vertices such that for every directed edge u->v from vertex u to vertex v, u comes before v in the ordering.
+     * In a directed acyclic graph, we can use Kahn's algorithm to get the topological ordering. 
+     * Kahn's algorithm works by keeping track of the number of incoming edges into each node (indegree). 
+     * It works by repreatedly visiting the nodes with an indgree of zero and deleting all the edges associated with it leading to a decrement of indegree for the nodes whose incoming edges are deleted. 
+     * This process continues until no elements with zero indegree can be found. 
+     *      The advantage of using Kahn's algorithm is that it also aids in the detection of graph cycles. 
+     * 
      * time complexity: O(V+E)
      * space complexity: O(V+E)
      */
@@ -96,11 +116,11 @@ public class P207_ToDo_Medium {
         }
 
         int nodecount = 0;
-        List<Integer> track = new ArrayList<>();
+        //List<Integer> track = new ArrayList<>();
         while(!queue.isEmpty()) {
             int next = queue.poll();
             nodecount++;
-            track.add(next);
+            //track.add(next);
 
             for(int x: adj.get(next)) {
                 indegree[x]--;
@@ -144,5 +164,40 @@ public class P207_ToDo_Medium {
             }
         }
         return true;
+    }
+
+    /*
+     * Solution: BFS with using hash map
+     * time complexity: O(n+m), n be the number of courses(numCourses) and m be the size of prerequisite pairs.
+     * space complexity: O(n+m), queue and beingPrecourses array store O(n) and linked map stores at most m (prerequisite pairs)
+     */
+    public boolean canFinish_withoutQueue(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> courseCharts = new HashMap<>();
+        int[] preCourses = new int[numCourses];
+        for(int[] pair: prerequisites) {
+            int target = pair[0];
+            int pre = pair[1];
+            courseCharts.putIfAbsent(target, new ArrayList<>());
+            courseCharts.get(target).add(pre);
+            preCourses[pre]++;
+        }
+
+        Deque<Integer> targetList = new ArrayDeque<>();
+        for(int i=0; i<numCourses; i++) {
+            if(preCourses[i]==0) {
+                targetList.add(i);
+            }
+        }
+        while(!targetList.isEmpty()) {
+            int target = targetList.remove();
+            for(int pre: courseCharts.getOrDefault(target, new ArrayList<>())) {
+                preCourses[pre]--;
+                if(preCourses[pre] == 0) {
+                    targetList.add(pre);
+                }
+            }
+            numCourses--;
+        }
+        return numCourses == 0;
     }
 }

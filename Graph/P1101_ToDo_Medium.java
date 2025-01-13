@@ -32,25 +32,30 @@
  */
 package Graph;
 
+import java.util.Arrays;
+
 public class P1101_ToDo_Medium {
     /*
      * Solution: Union Find
      * 
      * time complexity: O(N + MlogM+ Mα(N)), N be the number of poople and M be the number of logs
-     *      sorting takes O(MlogM), initializing the arrays in UnionFind takes O(N)
-     *      then, iterate through the sorted logs. At each iteration, we invoke the union(a,b). the amortized time complexity is O(Mα(N))
+     *      1. sorting takes O(MlogM), 
+     *      2. initializing the arrays in UnionFind takes O(N)
+     *      3. then, iterate through the sorted logs. At each iteration, we invoke the union(a,b). the amortized time complexity is O(Mα(N))
      * space complexity: O(N+logM)
      *      in Java, the Arrays.sort() is implemented as a variant of quicksort algorithm whose space complexity is O(logM)
      */
     public int earliestAcq(int[][] logs, int n) {
-        Arrays.sort(logs, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] log1, int[] log2) {
-                Integer n1 = new Integer(log1[0]);
-                Integer n2 = new Integer(log2[0]);
-                return n1.compareTo(n2);
-            }
-        });
+        // Arrays.sort(logs, new Comparator<int[]>() {
+        //     @Override
+        //     public int compare(int[] log1, int[] log2) {
+        //         Integer n1 = new Integer(log1[0]);
+        //         Integer n2 = new Integer(log2[0]);
+        //         return n1.compareTo(n2);
+        //     }
+        // });
+
+        Arrays.sort(logs, (a,b)-> Integer.compare(a[0], b[0]));
 
         int count =0;
         UnionFind uf = new UnionFind(n);

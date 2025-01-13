@@ -49,8 +49,12 @@ public class P152_ToDo_Medium {
 
         for(int i=1; i<nums.length; i++) {
             int minForMax = minsofar;
+            
             //nested Math.min/Math.max에서 nums[i]를 각각의 max와 min값에 곱한 후 비교해야 하는 것은, -값을 제대로 처리하기 위해서
             //subarray의 max product 를 구하는 것이기 때문에, minsofar은 비교 대상군에 해당되지 않는다 (subarray가 아니므로)
+            // Comparison targets: 
+            //      1. nums[i] vs. 2. min*nums[i] vs. 3. max*nums[i] 
+            //      i-1까지의 값이 크면 거기에 계속 곱하기를 해야 하므로, i-1값을 비교할 이유가 없다.
             minsofar = Math.min(nums[i], Math.min(minsofar*nums[i], maxsofar*nums[i]));
             maxsofar = Math.max(nums[i], Math.max(minForMax*nums[i], maxsofar*nums[i]));
             answer = Math.max(answer, maxsofar);
@@ -125,6 +129,21 @@ public class P152_ToDo_Medium {
             fromRight *= nums[n-1-i];
 
             answer = Math.max(answer, Math.max(fromLeft, fromRight));
+        }
+        return answer;
+    }
+
+    public int maxProduct(int[] nums) {
+        int max = nums[0], min = nums[0], answer = nums[0];
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i]<0) {
+                int temp = max;
+                max = min;
+                min = temp;
+            }
+            max = Math.max(nums[i], nums[i]*max);
+            min = Math.min(nums[i], nums[i]*min);
+            answer = Math.max(answer, max);
         }
         return answer;
     }

@@ -18,6 +18,8 @@
  */
 package QuickSelect_Heap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class P215_ToDo_Medium {
@@ -38,6 +40,18 @@ public class P215_ToDo_Medium {
             }
         }
         return heap.peek();
+    }
+
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b) -> b-a);
+        for(int num: nums) {
+            maxHeap.add(num);
+        }
+        while(k>1) {
+            maxHeap.remove();
+            k--;
+        }
+        return maxHeap.peek();
     }
 
     /*
@@ -71,7 +85,10 @@ public class P215_ToDo_Medium {
     }
 
     /*
-     * Solution: QuickSelect 1
+     * Solution: QuickSelect 1 - Passed without TLE
+     * 
+     * Approach:
+     *      Quickselect, also known as Hoare's selection algorithm, is an algorithm for finding the kth smallest element in an unordered list. It is significant because it has an average runtime of O(n).
      * time complexity: O(n)
      * space complexity: O(n)
      */
@@ -84,10 +101,13 @@ public class P215_ToDo_Medium {
     }
 
     int quickSelect(List<Integer> nums, int k) {
-        int pivotindex = nums.size()/2;
-        int pivot = nums.get(pivotindex);
+        // int pivotindex = nums.size()/2;
+        // int pivot = nums.get(pivotindex);
+        int pivot = nums.getLast();
 
+        // left holds larger numbers than pivot
         List<Integer> left = new ArrayList<>();
+        // right holds smaller numbers than pivot
         List<Integer> right = new ArrayList<>();
         List<Integer> mid = new ArrayList<>();
 
@@ -112,7 +132,7 @@ public class P215_ToDo_Medium {
     }
 
      /*
-     * Solution: QuickSelect 2
+     * Solution: QuickSelect 2 - TLE for the largest dataset
      * time complexity: O(n)
      * space complexity: O(n)
      */
