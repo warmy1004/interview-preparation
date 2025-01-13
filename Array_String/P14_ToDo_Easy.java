@@ -20,6 +20,8 @@
 
 package Array_String;
 
+import java.util.Arrays;
+
 public class P14_ToDo_Easy {
     /*
      * Solution 1: Vertical scanning
@@ -69,10 +71,12 @@ public class P14_ToDo_Easy {
      *  where LCP(S1 ... Sn) is the longest common prefix in set of strings [S1 ... Sn], 1<k<n
      * 
      * In the worst case, we have n equal strings with length m
-     * time complexity: O(S), where S is the number of all characters in the array, S=m*n
+     * time complexity: O(S)
+     *      where S is the number of all characters in the array, S=m*n
      *      Time complexity is 2*T(n/2)+O(m). Therefore, time complexity is O(S).
      *      In the best case, this algorithm performs O(minLen*n), where minLen is the shortest string of the array
-     * Space complexity: O(m*logn), there is a memory overhead since we store recursive calls in the execution stack. There are logn recursive calls, each store needs m space to store the result.
+     * Space complexity: O(m*logn)
+     *      there is a memory overhead since we store recursive calls in the execution stack. There are logn recursive calls, each store needs m space to store the result.
      */
     public String longestCommonPrefix(String[] strs) {
         if(strs.length == 0) return "";
@@ -101,13 +105,15 @@ public class P14_ToDo_Easy {
 
     /*
      * Solution 4: Binary search
+     * time complexity: O(Slogm)
+     * space complexity: O(1)
      */
     public String longestCommonPrefix(String[] strs) {
         if(strs.length == 0) return "";
         int min_len = Integer.MAX_VALUE;
         for(String s : strs) min_len = Math.min(min_len, s.length());
 
-        int low =1;
+        int low =0;
         int high=min_len;
         // low == high: to check one character, i.e. low=high=1
         while(low<=high) {

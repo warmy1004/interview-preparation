@@ -24,6 +24,9 @@
 
 package Graph;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /*
     Similar Questions:
         323. Number of Connected Components in an undirected graph - Medium
@@ -63,6 +66,39 @@ public class P547_ToDo_Medium {
     }
 
     /*
+     * Soution : BFS
+     * time complexity: O(n^2)
+     * space complexity: O(n)
+     */
+    public int findCircleNum(int[][] isConnected) {
+        boolean[] visited = new boolean[isConnected.length];
+        int count = 0;
+        for(int i=0; i<isConnected.length; i++) {
+            // check the connected neighbor and make them having the same root
+            if(!visited[i]) {
+                bfs(i, isConnected, visited);
+                count++;
+            }
+        }
+        return count;
+    }
+    void bfs(int node, int[][] isConnected, boolean[] visited) {
+        visited[node] = true;
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(node);
+        while(!queue.isEmpty()) {
+            node = queue.remove();
+            // Check the connected neighbor
+            for(int i=0; i<isConnected.length; i++) {
+                if(!visited[i] && isConnected[node][i] == 1) {
+                    queue.add(i);
+                    visited[i] = true;
+                }
+            }
+        }
+    }
+
+    /*
      * Soution : Union-Find
      * time complexity: O(n^2)
      * space complexity: O(n)
@@ -74,6 +110,7 @@ public class P547_ToDo_Medium {
 
         for(int i=0; i<n; i++) {
             for (int j = i+1; j<n; j++) {
+                // if they are connected but they don't have the same parents, then call union to make them connected
                 if(isConnected[i][j] == 1 && uf.find(i)!=uf.find(j)) {
                     uf.union(j, j);
                     provinces--;
@@ -86,6 +123,7 @@ public class P547_ToDo_Medium {
     class UnionFind{
         int[] parent;
         int[] rank;
+        int count;
 
         public UnionFind(int n) {
             parent = new int[n];
@@ -93,7 +131,7 @@ public class P547_ToDo_Medium {
                 parent[i] = i;
             }
             rank = new int[n];
-
+            count = n;
         }
 
         int find(int i) {
@@ -115,8 +153,32 @@ public class P547_ToDo_Medium {
                     parent[rooty] = rootx;
                     rank[rootx]++;
                 }
+                count--;
             }
         }
+
+        int getCount() {
+            return count;
+        }
+    }
+
+    /*
+     * Soution : Union-Find v2
+     * time complexity: O(n^2)
+     * space complexity: O(n)
+     */
+    public int findCircleNum_UF(int[][] isConnected) {
+        int n = isConnected.length;
+        UnionFind uf = new UnionFind(n);
+        for(int i=0; i<n; i++) {
+            for(int j=i+1; j<n; j++) {
+            // for(int j=0; j<n; j++) is also possible
+                if(isConnected[i][j] == 1) {
+                    uf.union(i, j);
+                }
+            }
+        }
+        return uf.getCount();
     }
 
      /*

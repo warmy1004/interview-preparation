@@ -61,6 +61,7 @@ public class P125_Easy {
     public boolean isPalindrome(String s) {
         int i = 0, j = s.length()-1;
         while(i<j) {
+            // the problem mentions "alphanumeric", so digit is also covered.
             while(i<j && !Character.isLetterOrDigit(s.charAt(i))) {
                 i++;
             }

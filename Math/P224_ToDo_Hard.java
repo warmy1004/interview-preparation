@@ -31,6 +31,7 @@ import java.util.Stack;
 public class P224_ToDo_Hard {
     /*
      * Solution: Using Stack
+     *      Approach: using a stack to store the total number which is currently calculated by and sign before calculating the nested parenthesis
      * time complexity: O(n)
      * space complexity: O(n)
      */

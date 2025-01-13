@@ -28,7 +28,7 @@ package DP;
 
 public class P198_Robber Medium {
     /*
-     * Solution1: Bottom up DP with memoization
+     * Solution1: Bottom up DP with memoization from backward
      * 
      * time complexity: O(n)
      * space complexity: O(n)
@@ -49,7 +49,7 @@ public class P198_Robber Medium {
     }
 
     /*
-     * Solution 2: Bottom up DP with memoization 2
+     * Solution 2: Bottom up DP with memoization 2 from forward
      * 
      * time complexity: O(n)
      * space complexity: O(n)

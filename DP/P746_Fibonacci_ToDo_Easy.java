@@ -62,6 +62,7 @@ public class P746_Fibonacci_ToDo_Easy {
      */
     public int minCostClimbingStairs_second(int[] cost) {
         int[] dp = new int[cost.length+1];
+        // this is important. cost[i] is needed for leaving the ith stair. 
         dp[0]= 0;
         dp[1]= 0;
         for (int i = 2; i<cost.length+1; i++) {

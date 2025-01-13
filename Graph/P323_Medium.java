@@ -23,6 +23,7 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class P323_Medium {
     /*
@@ -72,6 +73,13 @@ public class P323_Medium {
 
     /*
      * Solution: DFS
+     * 
+     * Approach:
+     *      Starting from a particular vertex, it will continue to visit the vertices depth-wise until there are no more adjacent vertices left to visit. 
+     *      Thus, it will visit all of the vertices within the connected component that contains the starting vertex. 
+     *      Each time we finish exploring a connected component, we can find another vertex that has not been visited yet, and start a new DFS from there.
+     *      The number of times we start a new DFS will be the number of connected components.
+     * 
      * time complexity: O(E+V)
      * space complexity: O(E+V)
      */
@@ -104,6 +112,40 @@ public class P323_Medium {
                 dfs(neighbor, visited, adj);
             }
         }
+    }
+
+    /*
+     * Sollution: Disjoint Set Union(DSU)
+     * 
+     * time complexity:
+     * space complexity:
+     */
+    public int countComponents_UF(int n, int[][] edges) {
+        int[] parent = new int[n];
+        for(int i=0; i<n; i++) {
+            parent[i] = i;
+        }
+        int count = n;
+        for(int[] edge: edges) {
+            count -= union(edge[0], edge[1], parent);
+        }
+        return count;
+    }
+
+    int union(int x, int y, int[] parent) {
+        int px = find1(x, parent);
+        int py = find1(y, parent);
+        if(px==py) {
+            return 0;
+        } else {
+            parent[px] = py;
+            return 1;
+        }
+    }
+
+    int find1(int x, int[] parent) {
+        if(parent[x]!=x) parent[x] = find(parent[x], parent);
+        return parent[x];
     }
 }
 

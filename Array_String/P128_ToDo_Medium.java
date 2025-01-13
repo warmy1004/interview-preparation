@@ -19,6 +19,7 @@
 
 package Array_String;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,5 +76,42 @@ public class P128_ToDo_Medium {
             max = Math.max(count, max);
         }
         return max;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        if(nums.length <=1) {
+            return nums.length;
+        }
+        Arrays.sort(nums);
+        int max = 0;
+        int count = 1;
+        for(int i=0; i<nums.length-1; i++) {
+            if(nums[i]+1 == nums[i+1]) {
+                count++;
+            } else if(nums[i] != nums[i+1]) {
+                count = 1;
+            }
+            max = Math.max(max, count);
+        }
+        return max;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        if(nums.length == 0) return 0;
+
+        Arrays.sort(nums);
+        int max = 1;
+        int count = 1;
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i]!=nums[i-1]) {
+                if(nums[i-1]+1 == nums[i]) {
+                    count++;
+                } else {
+                    max = Math.max(count, max);
+                    count = 1;
+                }
+            }
+        }
+        return Math.max(count, max);
     }
 }
