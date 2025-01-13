@@ -47,6 +47,22 @@ public class P713_SlidingWindow_ToDo_Medium {
         return count;
     }
 
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int count = 0;
+        int i=0, j=0, product = 1;
+        while(j<nums.length) {
+            product *= nums[j];
+            while(i<=j && product >=k) {
+                product /= nums[i];
+                i++;
+            }
+            count += j-i+1;
+            j++;
+        }
+        return count;
+    }
+
+
     /*
      * Solution: Brute Force
      * time complexity: O(n^2)

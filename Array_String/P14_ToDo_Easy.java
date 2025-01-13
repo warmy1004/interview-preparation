@@ -26,39 +26,39 @@ public class P14_ToDo_Easy {
      * time complexity: O(S), where S is the sume of all characters in all strings. In the worst case, there will be n euqal strings with length m and the algorithm performs S=mn character comparisons.
      * space complexity: O(1)
      */
-    // public String longestCommonPrefix(String[] strs) {
-    //     if(strs.length == 0) return "";
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
         
-    //     //set the target as the first string
-    //     for(int i=0; i<strs[0].length(); i++) {
-    //         char c = strs[0].charAt(i);
-    //         for(int j=0; j<strs.length; j++) {
-    //             if(i == strs[j].length() || strs[j].charAt(i) != c) {
-    //                 return strs[0].substring(0, i);
-    //             }
-    //         }
-    //     }
-    //     return strs[0];
-    // }
+        //set the target as the first string
+        for(int i=0; i<strs[0].length(); i++) {
+            char c = strs[0].charAt(i);
+            for(int j=0; j<strs.length; j++) {
+                if(i == strs[j].length() || strs[j].charAt(i) != c) {
+                    return strs[0].substring(0, i);
+                }
+            }
+        }
+        return strs[0];
+    }
 
     /*
      * Solution 2: Horizontal scanning
      * time complexity: O(S)
      * space complexity: O(1)
      */
-    // public String longestCommonPrefix(String[] strs) {
-    //     if(strs.length == 0) return "";
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
 
-    //     String prefix = strs[0];
-    //     for(int i=1; i<strs.length; i++) {
-    //         // indexOf() : returns the position of the first occurence of specified character(s) in a string
-    //         while(strs[i].indexOf(prefix)!=0) {
-    //             prefix = prefix.substring(0, prefix.length()-1);
-    //             if(prefix.isEmpty()) return "";
-    //         }
-    //     }
-    //     return prefix;
-    // }
+        String prefix = strs[0];
+        for(int i=1; i<strs.length; i++) {
+            // indexOf() : returns the position of the first occurence of specified character(s) in a string
+            while(strs[i].indexOf(prefix)!=0) {
+                prefix = prefix.substring(0, prefix.length()-1);
+                if(prefix.isEmpty()) return "";
+            }
+        }
+        return prefix;
+    }
 
     /*
      * Solution 3: Divide and conquer
@@ -74,30 +74,30 @@ public class P14_ToDo_Easy {
      *      In the best case, this algorithm performs O(minLen*n), where minLen is the shortest string of the array
      * Space complexity: O(m*logn), there is a memory overhead since we store recursive calls in the execution stack. There are logn recursive calls, each store needs m space to store the result.
      */
-    // public String longestCommonPrefix(String[] strs) {
-    //     if(strs.length == 0) return "";
-    //     return lcp(strs, 0, strs.length-1);
-    // }
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
+        return lcp(strs, 0, strs.length-1);
+    }
 
-    // String lcp(String[] strs, int left, int right) {
-    //     if(left==right) return strs[left];
-    //     else {
-    //         int mid = (left+right)/2;
-    //         String l_str = lcp(strs, left, mid);
-    //         String r_str = lcp(strs, mid+1, right);
-    //         return checkCommon(l_str, r_str);
-    //     }
-    // }
+    String lcp(String[] strs, int left, int right) {
+        if(left==right) return strs[left];
+        else {
+            int mid = (left+right)/2;
+            String l_str = lcp(strs, left, mid);
+            String r_str = lcp(strs, mid+1, right);
+            return checkCommon(l_str, r_str);
+        }
+    }
 
-    // String checkCommon(String left, String right) {
-    //     int min_len = Math.min(left.length(), right.length());
-    //     for(int i=0; i<min_len; i++) {
-    //         if(left.charAt(i)!=right.charAt(i)) {
-    //             return left.substring(0, i);
-    //         }
-    //     }
-    //     return left.substring(0, min_len);
-    // }
+    String checkCommon(String left, String right) {
+        int min_len = Math.min(left.length(), right.length());
+        for(int i=0; i<min_len; i++) {
+            if(left.charAt(i)!=right.charAt(i)) {
+                return left.substring(0, i);
+            }
+        }
+        return left.substring(0, min_len);
+    }
 
     /*
      * Solution 4: Binary search
@@ -129,5 +129,43 @@ public class P14_ToDo_Easy {
             }
         }
         return true;
+    }
+
+    /*
+     * Solution 4: Sort first
+     */
+    public String longestCommonPrefix(String[] strs) {
+        Arrays.sort(strs);
+        String s1 = strs[0];
+        String s2 = strs[strs.length-1];
+
+        int index = 0;
+        while(index<s1.length() && index<s2.length()) {
+            if(s1.charAt(index) == s2.charAt(index)) {
+                index++;
+            } else{
+                break;
+            }
+        }
+        return s1.substring(0, index);
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 1) return strs[0];
+        int minLen = Integer.MAX_VALUE;
+        for(String s: strs ){
+            minLen = Math.min(minLen, s.length());
+        }
+
+        for(int i=0; i<strs.length-1; i++) {
+            for(int j=i+1; j<strs.length; j++) {
+                if( !strs[i].substring(0, minLen).equals(strs[j].substring(0, minLen))) {
+                    minLen--;
+                    i=-1;
+                    break;
+                }
+            }
+        }
+        return minLen == 0 ? "": strs[0].substring(0,minLen);
     }
 }
