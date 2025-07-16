@@ -36,6 +36,19 @@ public class P121_Easy {
         }
         return profit;
     }
+
+    /*
+     * Solution: kadane's algorithm
+     */
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        int answer = 0;
+        for(int i=1; i<prices.length; i++) {
+            max = Math.max(0, prices[i]-prices[i-1]);
+            answer = Math.max(max, answer);
+        }
+        return answer;
+    }
 }
 
 /*

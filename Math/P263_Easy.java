@@ -44,6 +44,10 @@ public class P263_Easy {
         return n;
     }
 
+    /*
+     * Solution
+     */
+
     public boolean isUgly(int n) {
         if(n<=0) return false;
         if(n==1) return true;

@@ -33,9 +33,14 @@ package BFS_DFS_BinaryTree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class P994_ToDo_Medium {
+public class P994_Medium {
     /*
      * Solution 1: BFS
+     * 
+     * BFS: prioritizes the breadth over depth, i.e. it goes wider before it goes deeper. The choice of strategy between dfs and bfs depedns on the nature of the problem.
+     * Because the process of rotting could be explained perfectly with the bfs procedure, i.e. the rotten oranges will contaminate their neighbors first, 
+     * before the contamination propagates to other fresh oranges that are farther away.
+     * 
      * time complexity: O(nm)
      * space complexity: O(nm)
      */

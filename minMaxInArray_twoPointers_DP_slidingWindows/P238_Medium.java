@@ -87,4 +87,71 @@ public class P238_Medium {
         }
         return left;
     }
+
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+        result[0] = nums[0];
+        for(int i=1; i<n; i++) {
+            result[i] = result[i-1] * nums[i];
+        }
+        int suffix = 1;
+        for(int i=n-1; i>0; i--) {
+            result[i] = result[i-1]*suffix;
+            suffix *= nums[i];
+        }
+        result[0] = suffix;
+        return result;
+    }
 }
+
+/*
+ * JavaScript
+ */
+var productExceptSelf = function(nums) {
+    let n = nums.length;
+    const arr = new Array(n).fill(1);
+    for(let i=1; i<n; i++) {
+        arr[i] = arr[i-1]*nums[i-1];
+    }
+
+    let suffix = 1;
+    for(let i=n-1; i>=0; i--) {
+        arr[i] = arr[i]*suffix;
+        suffix = suffix * nums[i];
+    }
+    return arr;
+};
+
+var productExceptSelf = function(nums) {
+    let left = 1;
+    let right = 1;
+    const arr = new Array(nums.length).fill(1);
+
+    for(let i=0; i<nums.length; i++) {
+        arr[i] = left;
+        left = left * nums[i];
+    }
+
+    for(int i=nums.length-1; i>=0; i--) {
+        arr[i] *= right;
+        right *= nums[i];
+    }
+    return arr;
+};
+
+/*
+ * Python
+ */
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        left, right = [1] * n, [1] * n
+
+        for i in range(1, n):
+            left[i] = left[i-1] * nums[i-1]
+        for i in reversed(range(n-1)):
+            right[i] = right[i+1] * nums[i+1]
+        for i in range(n):
+            left[i] *= right[i]
+        return left

@@ -36,9 +36,12 @@ public class P204_Medium {
      * space complexity: O(n)
      */
     public int countPrimes(int n) {
+        // less than n, so n==2 is also 0.
         if(n<=2) return 0;
 
         boolean[] nums = new boolean[n];
+        nums[0] = true;
+        nums[1] = true;
         for(int i=2; i<=Math.sqrt(n); i++) {
             if(nums[i] == false) {
                 for(int j=i*i; j<n; j+=i) {

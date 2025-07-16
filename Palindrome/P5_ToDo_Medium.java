@@ -59,18 +59,14 @@ public class P5_ToDo_Medium {
      * space complexity: O(1)
      */
     public String longestPalindrome_expanding(String s) {
-        String result =s.substring(0, 1);
-        for(int i=0; i<s.length(); i++) {
-            String odd = findPalindrome(s, i, i);
-            String even = findPalindrome(s, i, i+1);
-            if(result.length() < odd.length()) {
-                result = odd;
-            }
-            if(result.length() < even.length()) {
-                result = even;
-            }
+        String answer = s.substring(0, 1);
+        for(int center=0; center<s.length(); center++) {
+            String odd = findPalindrome(s, center, center);
+            String even = findPalindrome(s, center, center+1);
+            if(answer.length() < odd.length()) answer = odd;
+            if(answer.length() < even.length()) answer = even;
         }
-        return result;
+        return answer;
     }
 
     String findPalindrome(String s, int i, int j) {

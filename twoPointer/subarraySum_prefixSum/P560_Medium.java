@@ -21,7 +21,7 @@ package twoPointer.subarraySum_prefixSum;
 import java.util.HashMap;
 import java.util.Map;
 
-public class P560_ToDo_Medium {
+public class P560_Medium {
     /*
      * Solution: Brute force
      * time complexity: O(n^3)

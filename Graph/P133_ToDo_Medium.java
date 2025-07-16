@@ -89,6 +89,23 @@ public class P133_ToDo_Medium {
         return copy;
     }
 
+    /* 
+     * Solution : DFS - v3
+     * time complexity: O(n+m), where n is a number of nodes and m is a number of edges
+     * space complexity: O(n)
+     */
+    Map<Node, Node> map = new HashMap<>();
+    public Node cloneGraph(Node node) {
+        if(node==null) return null;
+        if(map.containsKey(node)) return map.get(node);
+        Node created = new Node(node.val);
+        map.put(node, created);
+        for(Node neigh: node.neighbors) {
+            created.neighbors.add(cloneGraph(neigh));
+        }
+        return created;
+    }
+
     /*
      * Solution: BFS
      * time complexity: O(n+m), where n is a number of nodes (vertices) and m is a number of edges

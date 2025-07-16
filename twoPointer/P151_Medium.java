@@ -57,6 +57,18 @@ public class P151_Medium {
         return answer.append(splitted[0]).toString();
     }
 
+    public String reverseWords(String s) {
+        String[] arr = s.trim().split(" ");
+        StringBuilder str = new StringBuilder();
+        for(int i=arr.length-1; i>0; i--) {
+            if(!arr[i].equals("")) {
+                str.append(arr[i]);
+                str.append(" ");
+            }
+        }
+        return str.append(arr[0]).toString();
+    }
+
     /*
      * Solution: without built-in function
      * time complexity: O(n)
@@ -104,3 +116,61 @@ public class P151_Medium {
         return str.toString().trim();
     }
 }
+
+/*
+ * JavaScript
+ */
+var reverseWords = function(s) {
+    let words = s.trim().split(/\s+/).reverse();
+    return words.join(" ");
+}
+
+var reverseWords = function(s) {
+    let words = s.split(' ');
+    let arr = [];
+    for(let i=words.length-1; i>=0; i--) {
+        if(words[i]) {
+            arr.push(words[i]);
+        }
+    }
+    return arr.join(" ");
+}
+
+/*
+ * Python
+ */
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return " ".join(reversed(s.split()))
+
+class Solution:
+    def reverseWords(self, s:str) -> str:
+        words = s.split()
+        res = []
+        for i in range(len(words)-1, -1, -1):
+            res.append(words[i])
+            if i!=0:
+                res.append(" ")
+        return "".join(res)
+
+class Solution:
+    def reverseWords(self, s:str) -> str:
+        words = s.split()
+        i, j = 0, len(words)-1
+        while i<j:
+            words[i], words[j] = words[j], words[i]
+            i+=1
+            j-=1
+        return " ".join(words)
+
+class Solution:
+    def reverseWords(self, s:str) -> str:
+        words = s.split()
+        reversed_words = words[::-1]
+        return " ".join(reversed_words)
+
+class Solution:
+    def reverseWords(self, s:str) -> str:
+        words = s.split()
+        reversed_words = reversed(words)
+        return " ".join(reversed_words)

@@ -47,7 +47,7 @@ public class P236_ToDo_Medium {
         parents.put(root, null);
 
         while(!parents.containsKey(p) || !parents.containsKey(q)) {
-            TreeNode node = stack.poll();
+            TreeNode node = stack.pop();
             if(node.left!=null) {
                 stack.push(node.left);
                 parents.put(node.left, node);
@@ -59,7 +59,8 @@ public class P236_ToDo_Medium {
         }
 
         Set<TreeNode> seen = new HashSet<>();
-        while(!seen.contains(p)) {
+        // process all ancestors for node p using parent pointers
+        while(p!=null) {
             seen.add(p);
             p = parents.get(p);
         }
