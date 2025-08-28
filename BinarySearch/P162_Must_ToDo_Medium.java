@@ -22,6 +22,16 @@
  */
 package BinarySearch;
 
+/*
+ * binary search problems - type 3: 조건 만족하는 최대값 upper bound 찾기
+ * 34. find first and last position
+ * 69. sqrt(x)
+ * 852.Peak Index in a Mountain Array -> exactly same
+ * 
+ * 조건: target보다 작거나 같은 마지막 값
+ *      조건을 만족하는 가장 "오른쪽" 경계를 찾는 경우
+ */
+
 public class P162_Must_ToDo_Medium {
     /*
      * Solution: iterative binary search 1
@@ -38,7 +48,7 @@ public class P162_Must_ToDo_Medium {
                 left = mid+1;
             }
         }
-        return left;
+        return left; // left is same as right, so we can return right instead
     }
 
     /*

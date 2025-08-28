@@ -24,6 +24,12 @@
  */
 package BinarySearch;
 
+/*
+ * Find upper bound
+ * - P69. sqrt(x)
+ * - P162. Find Peak Element
+ */
+
 public class P34_ToDo_Medium {
     /*
      * Solution: binary search
